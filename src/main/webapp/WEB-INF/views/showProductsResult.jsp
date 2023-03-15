@@ -22,7 +22,6 @@
 
         <link type="text/css" rel="stylesheet" href="<c:url value="/assets/css/detailProduct.css" />" />
         <link type="text/css" rel="stylesheet" href="<c:url value="/assets/css/showProductByCategoryPage.css" />" />
-        <link type="text/css" rel="stylesheet" href="<c:url value="/assets/css/homePage.css" />" />
 
         <title>Document</title>
     </head>

@@ -7,7 +7,6 @@ package com.team1.ecommerceplatformm.product;
 import com.team1.ecommerceplatformm.category.CategoryDAO;
 import com.team1.ecommerceplatformm.category.CategoryDTO;
 import com.team1.ecommerceplatformm.common.AbstractDAO;
-import com.team1.ecommerceplatformm.imageProduct.ImageProductDAO;
 import com.team1.ecommerceplatformm.shop.ShopDAO;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -216,7 +215,6 @@ public class ProductDAO extends AbstractDAO<ProductDTO> {
         stm.setInt(1, categoryID);
         ResultSet rs = stm.executeQuery();
         ArrayList<ProductDTO> list = new ArrayList<>();
-        ImageProductDAO imageProductDAO = new ImageProductDAO();
 
         while (rs.next()) {
             ProductDTO dto = new ProductDTO();
@@ -225,7 +223,6 @@ public class ProductDAO extends AbstractDAO<ProductDTO> {
             dto.setCategoryID(rs.getInt("category_id"));
             dto.setPrice(rs.getDouble("price"));
             dto.setName(rs.getString("name"));
-            dto.setMainImg(imageProductDAO.getMainImageByProductID(productID));
             list.add(dto);
         }
         rs.close();
@@ -313,7 +310,6 @@ public class ProductDAO extends AbstractDAO<ProductDTO> {
         stm.setInt(1, shopId);
         ResultSet rs = stm.executeQuery();
         ArrayList<ProductDTO> list = new ArrayList<>();
-        ImageProductDAO imageProductDAO = new ImageProductDAO();
         while (rs.next()) {
             ProductDTO dto = new ProductDTO();
             dto.setProductID(rs.getInt("product_id"));
@@ -330,7 +326,6 @@ public class ProductDAO extends AbstractDAO<ProductDTO> {
             dto.setDiscount(rs.getFloat("discount"));
             dto.setSoldCount(rs.getInt("sold_count"));
             dto.setAuthen(rs.getBoolean("authen"));
-            dto.setMainImg(imageProductDAO.getMainImageByProductID(rs.getInt("product_id")));
             list.add(dto);
         }
         return list;
@@ -354,7 +349,6 @@ public class ProductDAO extends AbstractDAO<ProductDTO> {
         stm.setInt(1, shopId);
         ResultSet rs = stm.executeQuery();
         ArrayList<ProductDTO> list = new ArrayList<>();
-        ImageProductDAO imageProductDAO = new ImageProductDAO();
         while (rs.next()) {
             ProductDTO dto = new ProductDTO();
             dto.setProductID(rs.getInt("product_id"));
@@ -371,7 +365,6 @@ public class ProductDAO extends AbstractDAO<ProductDTO> {
             dto.setDiscount(rs.getFloat("discount"));
             dto.setSoldCount(rs.getInt("sold_count"));
             dto.setAuthen(rs.getBoolean("authen"));
-            dto.setMainImg(imageProductDAO.getMainImageByProductID(rs.getInt("product_id")));
             list.add(dto);
         }
         return list;
@@ -401,7 +394,6 @@ public class ProductDAO extends AbstractDAO<ProductDTO> {
                 + " where p.product_id = ?");
         stm.setInt(1, id);
         ResultSet rs = stm.executeQuery();
-        ImageProductDAO imgDao = new ImageProductDAO();
         ProductDTO dto = new ProductDTO();
         if (rs.next()) {
             dto.setProductID(rs.getInt("product_id"));
@@ -421,9 +413,7 @@ public class ProductDAO extends AbstractDAO<ProductDTO> {
 
             dto.setShopName(rs.getString("shop_name"));
             dto.setCategoryName(rs.getString("category_name"));
-            dto.setMainImg(imgDao.getMainImageByProductID(dto.getProductID()));
             System.out.println(dto.getMainImg().getUrl());
-            dto.setImgs(imgDao.getAllImagesIsNotMain(id));
 
         }
         return dto;
@@ -499,7 +489,6 @@ public class ProductDAO extends AbstractDAO<ProductDTO> {
         stm.setInt(2, productDTO.getCategoryID());
 //        stm.setInt(3, productDTO.getUserAdminID());
         ResultSet rs = stm.executeQuery();
-        ImageProductDAO imgDao = new ImageProductDAO();
         ProductDTO dto = new ProductDTO();
         if (rs.next()) {
             return rs.getInt("product_id");

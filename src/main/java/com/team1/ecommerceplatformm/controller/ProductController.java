@@ -72,15 +72,6 @@ public class ProductController extends HttpServlet {
                     break;
                 }
                 case "showDetail": {
-                    int productID = Integer.parseInt(request.getParameter("productID"));
-                    ArrayList<ImageProductDTO> listImgs = imageDao.getAllMainImages();
-                    ArrayList<ImageProductDTO> listNotMainImg = imageDao.getAllImagesIsNotMain(productID);
-                    ProductDTO pro = productDao.get(productID);
-                    System.out.println("aaaaaaaaaaaa" + pro);
-                    request.setAttribute("listNotMainImg", listNotMainImg);
-                    request.setAttribute("listImgs", listImgs);
-                    request.setAttribute("productDetail", pro);
-                    isForward = true;
                     url = Constants.SHOW_PRODUCT_DETAIL_PAGE;
                     break;
                 }

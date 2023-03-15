@@ -10,7 +10,6 @@ import com.google.firebase.FirebaseOptions;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.gson.Gson;
 import com.team1.ecommerceplatformm.category.CategoryDAO;
 import com.team1.ecommerceplatformm.category.CategoryDTO;
 import com.team1.ecommerceplatformm.imageProduct.ImageProductDAO;
@@ -19,8 +18,6 @@ import com.team1.ecommerceplatformm.product.ProductDAO;
 import com.team1.ecommerceplatformm.product.ProductDTO;
 import com.team1.ecommerceplatformm.shop.ShopDAO;
 import com.team1.ecommerceplatformm.shop.ShopDTO;
-import com.team1.ecommerceplatformm.user.UserDAO;
-import com.team1.ecommerceplatformm.user.UserDTO;
 import com.team1.ecommerceplatformm.utils.Constants;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -33,11 +30,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
 import java.io.FileInputStream;
 import java.io.InputStream;
-import java.nio.file.Paths;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.util.Base64;
-import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -56,18 +50,8 @@ public class ProductManagerController extends HttpServlet {
             throws ServletException, IOException {
         //require userid ? 
         String url = "";
-        url = Constants.MANAGE_PRODUCT;
          // ngoại lệ với test ko sài gg đc vì local khác nhau
-        if (request.getParameter("userid") != null) {
-            try {
-                UserDTO udto;
-                udto = (new UserDAO()).get(Integer.parseInt(request.getParameter("userid")));
-                request.getSession().setAttribute("user", udto);
-            } catch (SQLException ex) {
-                Logger.getLogger(ProductManagerController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-        }
+        
         if (request.getSession().getAttribute("user") == null) {
             response.sendRedirect("MainController");
         } else {
@@ -77,17 +61,9 @@ public class ProductManagerController extends HttpServlet {
             } catch (SQLException ex) {
                 Logger.getLogger(ProductManagerController.class.getName()).log(Level.SEVERE, null, ex);
             }
-            System.err.println(listShop.size());
             request.setAttribute("listShop", listShop);
-            UserDTO user = (UserDTO) request.getSession().getAttribute("user");
             ShopDTO crshop = null;
-            try {
-
-                crshop = new ShopDAO().getByUserID(user.getUserID());
 //                crshop = new ShopDAO().getByUserID(Integer.parseInt(request.getParameter("userid")));
-            } catch (SQLException ex) {
-                Logger.getLogger(ProductManagerController.class.getName()).log(Level.SEVERE, null, ex);
-            }
             List<CategoryDTO> listcate = null;
             try {
                 listcate = new CategoryDAO().getAll();
@@ -95,11 +71,7 @@ public class ProductManagerController extends HttpServlet {
                 Logger.getLogger(ProductManagerController.class.getName()).log(Level.SEVERE, null, ex);
             }
             ArrayList<ProductDTO> listProduct = null;
-            try {
-                listProduct = new ProductDAO().getAllByIdUser(user.getUserID(), 1);
-            } catch (SQLException ex) {
-                Logger.getLogger(ProductManagerController.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            
             request.setAttribute("shop", crshop);
             request.setAttribute("listcate", listcate);
             request.setAttribute("prolist", listProduct);

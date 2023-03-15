@@ -27,6 +27,7 @@
     </script>
     <body>
         <header class="header">
+
             <!-- End header top -->
             <div class="header-center">
                 <div class="container">
@@ -79,50 +80,33 @@
                                         <span>Các loại sản phẩm</span>
                                         <i class="fa-regular fa-circle-down down"></i>
                                     </a>
-                                    <div class="menu-categories  ${param.btnAction == null  ? "" : "is-hover"}">
-                                    <ul  class="menu-categories-list" hidden>
-
-                                        <c:forEach items="${sessionScope.listCategory}" var="categoryItem">
-                                            <li class="menu-categories-item">
-                                                <a href="<c:url value="/MainController?btnAction=product&productAction=showByCateID&categoryID=${categoryItem.categoryID}&orderBy=popular"></c:url>" class="menu-categories-item-action">
-                                                    ${categoryItem.icon}${categoryItem.name}
-                                                </a>
-                                            </li>
-                                        </c:forEach>
-
-
-                                        <li class="menu-categories-item loadmore">
-                                            <div class="menu-categories-item-action">
-                                                <i class="fa-solid fa-circle-plus"></i>
-                                                <span class="more-view">Xem thêm</span>
-                                            </div>
-                                        </li>
-                                    </ul>
                                 </div>
                             </div>
-                        </div>
-                        <div class="header-bottom-right">
-                            <div class="row-header-bottom-right">
-                                <div class="header-bottom-search">
-                                    <form action="MainController">
-                                        <div class="input-group">
+                            <div class="header-bottom-right">
+                                <div class="row-header-bottom-right">
+                                    <div class="header-bottom-search">
+                                        <form action="MainController">
+                                            <div class="input-group">
 
-                                            <input type="text" name="searchValue" class="search-input" placeholder="Tìm kiếm..." required onkeyup="renderSearchResult(this.value)">
-                                            <div id="searchAjaxResult"></div>
-                                            <div class="search-icon">
-                                                <button type="submit" class="search-button" name="btnAction" value="search"><i
-                                                        class="fa-solid fa-magnifying-glass"></i><input type="text" name="orderBy" value="popular" hidden></button>
+                                                <input type="text" name="searchValue" class="search-input" placeholder="Tìm kiếm..." required onkeyup="renderSearchResult(this.value)">
+                                                <div id="searchAjaxResult"></div>
+                                                <div class="search-icon">
+                                                    <button type="submit" class="search-button" name="btnAction" value="search"><i
+                                                            class="fa-solid fa-magnifying-glass"></i><input type="text" name="orderBy" value="popular" hidden></button>
+                                                </div>
+
                                             </div>
+                                        </form>
+                                    </div>
+                                    <div style="    grid-column: 3/4;
+                                         justify-self: center;
+                                         display: flex;
+                                         align-items: center;">
 
+                                        <div class="header-bottom-cart">
+                                            <a href="#" class="cart-button"><i class="fa-solid fa-cart-shopping cart-icon"></i></a>
                                         </div>
-                                    </form>
-                                </div>
-                                <div style="    grid-column: 3/4;
-                                     justify-self: center;
-                                     display: flex;
-                                     align-items: center;">
-                                    ${sessionScope.user.roleID}
-                                    <div class="header-bottom-admin">
+                                        <div class="header-bottom-admin">
                                         <c:if test="${sessionScope.user.roleID == 4}">
                                             <a href="<c:url value="MainController?btnAction=admin&adminAction=show" />" class="cart-button"><i class="fa-solid fa-user-shield"></i></a>
                                             </c:if>

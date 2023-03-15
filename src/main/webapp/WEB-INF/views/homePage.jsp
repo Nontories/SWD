@@ -19,9 +19,7 @@
         <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
         <link type="text/css" rel="stylesheet" href="<c:url value="/assets/css/homePage.css" />" />
         <link type="text/css" rel="stylesheet" href="<c:url value="/assets/css/swiperHomePage.css" />" />
-
         <title>Document</title>
-
     </head>
 
     <body>
